@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { SIGN } from '../Board/Board';
 
 interface OwnProps {
   row: number;
   column: number;
-  sign?: SIGN;
+  sign: SIGN;
   state: Record<string, SIGN>;
   setState: (pos: string, sign: SIGN) => void;
 }
@@ -13,7 +13,7 @@ interface OwnProps {
 const Box: React.FC<OwnProps> = ({
   row,
   column,
-  sign = SIGN.NA,
+  sign,
   state,
   setState,
 }: OwnProps) => {
