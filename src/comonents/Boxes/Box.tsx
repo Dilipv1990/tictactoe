@@ -6,10 +6,17 @@ interface OwnProps {
   row: number;
   column: number;
   sign?: SIGN;
+  state: Record<string, SIGN>;
+  setState: (pos: string, sign: SIGN) => void;
 }
 
-const Box: React.FC<OwnProps> = ({ row, column, sign = SIGN.NA }: OwnProps) => {
-  let [currentSign, setCurrentSign] = useState(SIGN.NA);
+const Box: React.FC<OwnProps> = ({
+  row,
+  column,
+  sign = SIGN.NA,
+  state,
+  setState,
+}: OwnProps) => {
   return (
     <div
       className="box"
@@ -17,12 +24,11 @@ const Box: React.FC<OwnProps> = ({ row, column, sign = SIGN.NA }: OwnProps) => {
         width: '40px',
         height: '40PX',
         border: '1px solid black',
-        // flexBasis: '33%',
       }}
-      onClick={() => setCurrentSign(sign)}
+      onClick={() => setState(`${row}${column}`, sign)}
     >
-      {currentSign === SIGN.X && 'X'}
-      {currentSign === SIGN.O && 'O'}
+      {state[`${row}${column}`] === SIGN.X && 'X'}
+      {state[`${row}${column}`] === SIGN.O && 'O'}
     </div>
   );
 };

@@ -11,7 +11,9 @@ export enum SIGN {
 
 const Board: React.FC = () => {
   const count = 3;
-  let [currentSign, setCurrentSign] = useState(SIGN.X);
+  const [currentSign, setCurrentSign] = useState(SIGN.X);
+  const [state, setState] = useState<Record<string, SIGN>>({});
+
   return (
     <div
       className="board"
@@ -32,13 +34,17 @@ const Board: React.FC = () => {
       }}
     >
       {range({ end: count - 1 }).map((row: number) => (
-        <div>
+        <div key={`${row}`}>
           {range({ end: count - 1 }).map((column: number) => (
             <Box
               row={row}
               column={column}
               key={`${row}${column}`}
               sign={currentSign}
+              state={state}
+              setState={(pos: string, sign: SIGN) =>
+                setState((oldState) => ({ ...oldState, [pos]: sign }))
+              }
             />
           ))}
         </div>
